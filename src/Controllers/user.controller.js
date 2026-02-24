@@ -57,7 +57,7 @@ const LoginUser = async (req, res) => {
 
         // console.log(checkUser)
 
-        if(checkUser) {
+        if(checkUser.length > 0) {
 
             const token = jwt.sign({
                 id: checkUser._id
