@@ -55,13 +55,13 @@ const LoginUser = async (req, res) => {
     const checkUser = await user.findOne({username : username , password : password })
 
         if(checkUser) {
-            res.json({
+            res.status(200).json({
             status : "Success",
             message : "User Logged In",
             user : username
         }) 
         }else {
-            res.json({
+            res.status(400).json({
                 status : "Error",
                 message : "Invalid Credentials"
         })
@@ -79,5 +79,17 @@ const getAllUsers = async (req,res) => {
     })
 }
 
-module.exports = {addUser, LoginUser, getAllUsers}
+//get single user
+const getSingleUser = async (req, res) => {
+    // console.log(req.params.id)
+    const singleUser = await user.findById(req.params.id)
+    // console.log(singleUser)
+
+    res.status(200).json({
+        status : "Success",
+        data : singleUser
+    })
+}
+
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser}
 
