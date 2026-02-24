@@ -56,14 +56,7 @@ const LoginUser = async (req, res) => {
     const checkUser = await user.findOne({username : username , password : password })
 
         // console.log(checkUser)
-
-        if(checkUser.length > 0) {
-
-            const token = jwt.sign({
-                id: checkUser._id
-            }, process.env.JWT_SECRET_KEY)
-
-            res.cookie("token", token)
+        if(checkUser) {
 
             res.status(200).json({
             status : "Success",
