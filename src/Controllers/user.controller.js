@@ -53,9 +53,9 @@ const addUser = async (req, res) => {
 const LoginUser = async (req, res) => {
     const {username, password} = req.body
     
-    const checkUser = await user.findOne({username : username , password : password })
+        const checkUser = await user.findOne({username : username , password : password })
 
-        // console.log(checkUser)
+        console.log(checkUser)
         if(checkUser) {
 
             res.status(200).json({
@@ -63,8 +63,6 @@ const LoginUser = async (req, res) => {
             message : "User Logged In",
             user : username
             }) 
-
-
         }else {
             res.status(400).json({
                 status : "Error",
