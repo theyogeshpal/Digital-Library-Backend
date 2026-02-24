@@ -9,7 +9,7 @@ router.post("/user/login", userController.LoginUser)
 
 router.get("/users", userController.getAllUsers)
 
-router.get("/user/:id", userController.getSingleUser)
+router.get("/user/:username", userController.getSingleUser)
 
 
 
