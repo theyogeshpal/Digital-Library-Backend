@@ -1,6 +1,5 @@
 const express = require('express')
 const userController = require('../Controllers/user.controller')
-
 const router = express.Router()
 
 router.post("/user", userController.addUser)
@@ -11,7 +10,7 @@ router.get("/users", userController.getAllUsers)
 
 router.get("/user/:username", userController.getSingleUser)
 
-
+router.put("/update/photo", userController.updateUser)
 
 module.exports = router
 
