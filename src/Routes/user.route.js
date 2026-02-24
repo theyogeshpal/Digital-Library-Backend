@@ -10,7 +10,7 @@ router.get("/users", userController.getAllUsers)
 
 router.get("/user/:username", userController.getSingleUser)
 
-router.put("/update/photo", userController.updateUser)
+router.post("/update/photo", userController.updateUser)
 
 module.exports = router
 
