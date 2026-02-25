@@ -130,6 +130,35 @@ const updateUser = async (req, res) => {
     })
 }
 
+const updateProfile = async (req, res) => {
 
-module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser}
+    const {username, fullname, email, bio} = req.body
+
+    const userdata = await user.findOne({username : username})
+    if(!userdata){
+        return res.status(404).json({
+            message : "user not found"
+        })
+    }
+
+    try{
+        userdata.fullname = fullname,
+        userdata.email = email,
+        userdata.bio = bio
+
+        await userdata.save()
+        // console.log(userdata)
+        res.status(201).json({
+            message : "profile updated successfully"
+        })
+    }
+    catch(ex){
+        res.status(404).json({
+            message : ex.message
+        })
+    }
+}
+
+
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile}
 

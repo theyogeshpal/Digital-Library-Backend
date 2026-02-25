@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     photo : {
         type : String,
         required : false
+    },
+    bio : {
+        type : String,
+        required : false
     }
 })
 

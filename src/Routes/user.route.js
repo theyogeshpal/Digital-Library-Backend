@@ -12,6 +12,8 @@ router.get("/user/:username", userController.getSingleUser)
 
 router.post("/update/photo", userController.updateUser)
 
+router.put("/user/update", userController.updateProfile)
+
 module.exports = router
 
 
