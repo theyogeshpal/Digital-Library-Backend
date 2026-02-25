@@ -1,5 +1,6 @@
 const express = require('express')
-const userRoutes = require('./Routes/user.route') 
+const userRoutes = require('./Routes/user.route')
+const contactRoutes = require('./Routes/contact.route')  
 const cors = require('cors')
 const multer = require('multer')
 require('dotenv').config(); 
@@ -11,5 +12,6 @@ app.use(cors())
 const upload = multer({ storage: multer.memoryStorage() })
 
 app.use('/api', upload.single('photo') , userRoutes)
+app.use('/api', contactRoutes)
 
 module.exports = app
