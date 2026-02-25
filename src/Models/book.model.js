@@ -38,9 +38,17 @@ const bookSchema = new mongoose.Schema({
     type: String, 
     required: true 
 },
+  imageid: {
+    type: String,
+    required: false
+},
   bookPdf: { 
     type: String, 
     required: true 
+},
+  pdfid: {
+    type: String,
+    required: false
 },
   description: { 
     type: String, 
