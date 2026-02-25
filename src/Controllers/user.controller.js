@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 const user = require('../Models/user.model')
-const uploadFile = require('../services/storage.service')
+const {uploadFile, deleteFile} = require('../services/storage.service')
 
 
 const addUser = async (req, res) => {
@@ -107,10 +107,6 @@ const getSingleUser = async (req, res) => {
 const updateUser = async (req, res) => {
 
     const formdata = req.body
-    // console.log(req.file.buffer)
-
-    console.log(formdata.username)
-
     const userdata =  await user.findOne({username : formdata.username}) 
 
     if(!userdata){
@@ -118,10 +114,16 @@ const updateUser = async (req, res) => {
             message : "user not found"
         })
     }
+    
+    if(userdata.photoid){
+        const result = await deleteFile(userdata.photoid)
+    }
 
     const result = await uploadFile(req.file.buffer)
 
     userdata.photo = result.url
+    userdata.photoid = result.fileId
+
     await userdata.save()
     
     res.status(201).json({
