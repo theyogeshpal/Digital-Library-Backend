@@ -14,6 +14,8 @@ router.post("/update/photo", userController.updateUser)
 
 router.put("/user/update", userController.updateProfile)
 
+router.delete("/user/delete/:id", userController.deleteUser)
+
 module.exports = router
 
 

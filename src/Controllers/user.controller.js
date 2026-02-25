@@ -103,7 +103,7 @@ const getSingleUser = async (req, res) => {
     }
 }
 
-
+//upload user profile pic
 const updateUser = async (req, res) => {
 
     const formdata = req.body
@@ -130,6 +130,7 @@ const updateUser = async (req, res) => {
     })
 }
 
+// update user profile
 const updateProfile = async (req, res) => {
 
     const {username, fullname, email, bio} = req.body
@@ -159,6 +160,25 @@ const updateProfile = async (req, res) => {
     }
 }
 
+// delete user
+const deleteUser = async (req, res) => {
 
-module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile}
+    const id = req.params.id
+    const data = user.findOne({
+        _id : id
+    })
+
+    if(!data){
+        res.status(404).json({
+            message : "user not found"
+        })
+    }
+    await user.findByIdAndDelete(id)
+    res.status(200).json({
+        message : "user deleted successfully"
+    })
+
+}
+
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser}
 
