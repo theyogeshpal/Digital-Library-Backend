@@ -44,7 +44,6 @@ const addBook = async (req,res) => {
     })
 }
 
-
 const showBook = async (req,res) => {
     try {
         const data = await book.find()
@@ -104,4 +103,21 @@ const deleteBook = async (req, res) => {
      
 }
 
-module.exports = {addBook, showBook, getSingleBook, deleteBook}
+const getTotalBooks = async (req, res) => {
+    try {
+        const count = await book.countDocuments()
+        res.status(200).json({
+            status: "Success",
+            totalBooks: count
+        })
+    }
+    catch(e) {
+        console.log(e.message)
+        res.status(400).json({
+            status: "Failed",
+            message: "Error while fetching count"
+        })
+    }
+}
+
+module.exports = {addBook, showBook, getSingleBook, deleteBook, getTotalBooks}

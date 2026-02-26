@@ -194,5 +194,23 @@ const deleteUser = async (req, res) => {
 
 }
 
-module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser}
+// get total users count
+const getTotalUsers = async (req, res) => {
+    try {
+        const count = await user.countDocuments()
+        res.status(200).json({
+            status: "Success",
+            totalUsers: count
+        })
+    }
+    catch(e) {
+        console.log(e.message)
+        res.status(400).json({
+            status: "Failed",
+            message: "Error while fetching count"
+        })
+    }
+}
+
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser, getTotalUsers}
 
