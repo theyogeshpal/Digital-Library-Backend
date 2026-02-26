@@ -19,4 +19,6 @@ router.post('/add',bookUpload, bookController.addBook)
 
 router.get('/show', bookController.showBook)
 
+router.get('/show/:id', bookController.getSingleBook)
+
 module.exports = router;

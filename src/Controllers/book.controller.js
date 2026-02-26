@@ -59,4 +59,23 @@ const showBook = async (req,res) => {
     }
 }
 
-module.exports = {addBook, showBook}
+const getSingleBook = async (req, res) => {
+    const id = req.params.id
+    try{
+        const data = await book.findById(id)
+        res.status(200).json({
+            status : "Success",
+            data : data
+        })
+    }
+    catch(e){
+        console.log(e.message)
+        res.status(404).json({
+            status : "Failed",
+            message : "Book not found"
+        })
+    }
+
+}
+
+module.exports = {addBook, showBook, getSingleBook}
