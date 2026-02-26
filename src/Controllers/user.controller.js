@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const user = require('../Models/user.model')
 const {uploadFile, deleteFile} = require('../services/storage.service')
@@ -30,12 +31,17 @@ const addUser = async (req, res) => {
             username : username
         })
     }
+
+    // PASSWORD HASHING
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+
     const newUser = new user({
-        fullname,
-        username,
-        email,
-        dob,
-        password    
+        fullname : fullname,
+        username : username,
+        email : email,
+        dob : dob,
+        password : hashedPassword    
     })  
     try {
         await newUser.save()
@@ -55,10 +61,16 @@ const addUser = async (req, res) => {
 const LoginUser = async (req, res) => {
     const {username, password} = req.body
     
-        const checkUser = await user.findOne({username : username , password : password })
+    const checkUser = await user.findOne({username : username})
 
-        console.log(checkUser)
-        if(checkUser) {
+    if(!checkUser){
+        return res.status(404).json({
+            message : "user not found"
+        })  
+    }
+    const checkPass = bcrypt.compareSync(password, checkUser.password);
+
+        if(checkPass) {
 
             res.status(200).json({
             status : "Success",
