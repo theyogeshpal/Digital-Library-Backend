@@ -21,4 +21,6 @@ router.get('/show', bookController.showBook)
 
 router.get('/show/:id', bookController.getSingleBook)
 
+router.delete('/delete/:id', bookController.deleteBook)
+
 module.exports = router;

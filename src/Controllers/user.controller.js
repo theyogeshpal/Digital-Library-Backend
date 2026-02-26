@@ -90,6 +90,7 @@ const LoginUser = async (req, res) => {
 const getAllUsers = async (req,res) => {
     const allUsers = await user.find();
 
+    console.log(allUsers)
     res.status(200).json({
         status : "Success",
         data : allUsers

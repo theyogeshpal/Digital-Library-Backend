@@ -1,5 +1,5 @@
 const book = require('../Models/book.model')
-const {uploadFile} = require('../services/storage.service')
+const {uploadFile, deleteFile} = require('../services/storage.service')
 
 const addBook = async (req,res) => {
 
@@ -78,4 +78,30 @@ const getSingleBook = async (req, res) => {
 
 }
 
-module.exports = {addBook, showBook, getSingleBook}
+const deleteBook = async (req, res) => {
+    const id = req.params.id
+
+    try {
+
+        const data = await book.find({_id:id})
+
+        await deleteFile(data[0].imageid)
+
+        await book.findByIdAndDelete(id)
+
+        res.status(200).json({
+            status : "Success",
+            message : "Book Deleted",
+        })
+    }
+    catch(e){
+        console.log(e.message)
+        res.status(400).json({
+            status : "Failed",
+            message : "Error while deleting"
+        })
+    }
+     
+}
+
+module.exports = {addBook, showBook, getSingleBook, deleteBook}
