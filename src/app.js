@@ -3,6 +3,7 @@ const userRoutes = require('./Routes/user.route')
 const contactRoutes = require('./Routes/contact.route')
 const adminRoutes = require('./Routes/admin.route')
 const bookRoutes = require('./Routes/book.routes')
+const likeBook = require('./Routes/likeBook.route')
 
 const cors = require('cors')
 
@@ -21,5 +22,7 @@ app.use('/api', contactRoutes)
 app.use('/api/admin', adminRoutes)
 // book api
 app.use('/book', bookRoutes)
+//like book api
+app.use('/api', likeBook)
 
 module.exports = app

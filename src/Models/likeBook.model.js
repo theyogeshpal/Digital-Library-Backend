@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const likeBookSchema = new mongoose.Schema({
-    userid : {
-        type: mongoose.Schema.Types.ObjectId,
+    username : {
+        type: String,
         ref: 'user'
     },
     bookid : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'book'
-    },
+    }
 })
 
 
