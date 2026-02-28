@@ -23,6 +23,8 @@ router.delete("/user/delete/:id", userController.deleteUser)
 
 router.get("/users/count", userController.getTotalUsers)
 
+router.put("/user/changepassword", userController.changePassword)
+
 module.exports = router
 
 

@@ -241,5 +241,46 @@ const getTotalUsers = async (req, res) => {
     }
 }
 
-module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser, getTotalUsers, updateBanner}
+const changePassword = async (req, res) => {
+
+    const {username, oldpassword, newpassword} = req.body
+
+    const userdata = await user.findOne({username : username})
+
+    if(!userdata){
+        return res.status(404).json({
+            message : "user not found"
+        })
+    }
+
+    const validPassword = bcrypt.compareSync(oldpassword, userdata.password);
+
+    if(!validPassword) {
+        return res.status(404).json({
+            message : "invalid old password"
+        })
+    }
+    
+    if(oldpassword == newpassword){
+        return res.status(404).json({
+            message : "old password and new password should not be same"
+        })
+    }
+
+    // PASSWORD HASHING
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(newpassword, salt); 
+
+    await user.findByIdAndUpdate(
+        {_id : userdata._id},
+        {$set : {password : hashedPassword}},
+        {new : true}
+    )
+
+    res.status(200).json({
+        message : "password changed successfully"
+    })
+}
+
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser, getTotalUsers, updateBanner, changePassword}
 
