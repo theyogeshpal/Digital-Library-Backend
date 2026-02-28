@@ -15,6 +15,8 @@ router.get("/user/:username", userController.getSingleUser)
 
 router.post("/update/photo",upload.single('photo'), userController.updateUser)
 
+router.put("/update/banner",upload.single('banner'), userController.updateBanner)
+
 router.put("/user/update", userController.updateProfile)
 
 router.delete("/user/delete/:id", userController.deleteUser)

@@ -31,6 +31,14 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : false
     },
+    banner : {
+        type : String,
+        required : false
+    },
+    bannerid : {
+        type : String,
+        required : false
+    },
     bio : {
         type : String,
         required : false

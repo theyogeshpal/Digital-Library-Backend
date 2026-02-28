@@ -144,6 +144,35 @@ const updateUser = async (req, res) => {
     })
 }
 
+//update banner
+const updateBanner = async (req, res) => {
+
+    const formdata = req.body
+    const userdata =  await user.findOne({username : formdata.username}) 
+
+    if(!userdata){
+        return res.status(404).json({
+            message : "user not found"
+        })
+    }
+    
+    if(userdata.photoid){
+        const result = await deleteFile(userdata.photoid)
+    }
+
+    const result = await uploadFile(req.file.buffer)
+
+    userdata.banner = result.url
+    userdata.bannerid = result.fileId
+
+    await userdata.save()
+    
+    res.status(201).json({
+        message : "Banner saved successfully",
+        result : result.url
+    })
+}
+
 // update user profile
 const updateProfile = async (req, res) => {
 
@@ -212,5 +241,5 @@ const getTotalUsers = async (req, res) => {
     }
 }
 
-module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser, getTotalUsers}
+module.exports = {addUser, LoginUser, getAllUsers, getSingleUser, updateUser, updateProfile, deleteUser, getTotalUsers, updateBanner}
 
