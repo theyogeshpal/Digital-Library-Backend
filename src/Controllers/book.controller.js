@@ -120,4 +120,45 @@ const getTotalBooks = async (req, res) => {
     }
 }
 
-module.exports = {addBook, showBook, getSingleBook, deleteBook, getTotalBooks}
+const updateBook = async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const bookData = await book.findById(id)
+        if (!bookData) {
+            return res.status(404).json({
+                status: "Failed",
+                message: "Book not found"
+            })
+        }
+
+        const updateData = {
+            title: req.body.title,
+            author: req.body.author,
+            rating: req.body.rating,
+            pages: req.body.pages,
+            language: req.body.language,
+            publishDate: req.body.publishDate,
+            isbn: req.body.isbn,
+            description: req.body.description,
+            category: req.body.category,
+            fullDescription: req.body.fullDescription
+        }
+
+        await book.findByIdAndUpdate(id, updateData)
+
+        res.status(200).json({
+            status: "Success",
+            message: "Book Updated"
+        })
+    }
+    catch(e) {
+        console.log(e.message)
+        res.status(400).json({
+            status: "Failed",
+            message: "Error while updating"
+        })
+    }
+}
+
+module.exports = {addBook, showBook, getSingleBook, deleteBook, getTotalBooks, updateBook}

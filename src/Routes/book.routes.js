@@ -23,6 +23,8 @@ router.get('/show/:id', bookController.getSingleBook)
 
 router.delete('/delete/:id', bookController.deleteBook)
 
+router.put('/update/:id', bookController.updateBook)
+
 router.get('/count', bookController.getTotalBooks)
 
 module.exports = router;
