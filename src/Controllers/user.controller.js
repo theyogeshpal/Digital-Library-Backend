@@ -256,13 +256,13 @@ const changePassword = async (req, res) => {
     const validPassword = bcrypt.compareSync(oldpassword, userdata.password);
 
     if(!validPassword) {
-        return res.status(404).json({
+        return res.status(400).json({
             message : "invalid old password"
         })
     }
     
     if(oldpassword == newpassword){
-        return res.status(404).json({
+        return res.status(400).json({
             message : "old password and new password should not be same"
         })
     }

@@ -1,7 +1,9 @@
+require('dotenv').config();
 const { ImageKit } = require("@imagekit/nodejs")
 
+// Fallback configuration for ImageKit
 const imagekit = new ImageKit({
-  privateKey: "private_bgLQuSVui0msORiDGE9uebjsBdw=",
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
 });
 
 async function uploadFile(buffer) {
